@@ -4,6 +4,7 @@ import 'package:tesla/constanins.dart';
 import 'package:tesla/home_controller.dart';
 
 import 'components/door_lock.dart';
+import 'components/tesla_bottom_navigation.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -18,6 +19,11 @@ class HomeScreen extends StatelessWidget {
         animation: _controller,
         builder: (context, snapshot){
           return Scaffold(
+            bottomNavigationBar: TeslaBottomNavigationBar(
+              onTap: (index){},
+              selectedTab: 0,
+            ),
+
             body: SafeArea(
                 child: LayoutBuilder(
                   builder: (context, constrains){
@@ -40,7 +46,32 @@ class HomeScreen extends StatelessWidget {
                             isLock: _controller.isRightDoorLock,
                             press: _controller.updateRightDoorLock,
                           ),
-                        )
+                        ),
+
+                        Positioned(
+                          left: constrains.maxWidth * 0.05,
+                          child: DoorLock(
+                            isLock: _controller.isLeftDoorLock,
+                            press: _controller.updateLeftDoorLock,
+                          ),
+                        ),
+
+                        Positioned(
+                          top: constrains.maxHeight * 0.13,
+                          child: DoorLock(
+                            isLock: _controller.isBonnetLock,
+                            press: _controller.updateBonnetDoorLock,
+                          ),
+                        ),
+
+                        Positioned(
+                          bottom: constrains.maxHeight * 0.17,
+                          child: DoorLock(
+                            isLock: _controller.isTrunkLock,
+                            press: _controller.updateTrunkDoorLock,
+                          ),
+                        ),
+
                       ],
                     );
                   },
