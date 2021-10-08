@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tesla/constanins.dart';
 import 'package:tesla/home_controller.dart';
+import 'package:tesla/screens/components/battery_status.dart';
 
 import 'components/door_lock.dart';
 import 'components/tesla_bottom_navigation.dart';
@@ -18,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   late AnimationController _batteryAnimationController;
   late Animation<double> _animationBattery;
+  late Animation<double> _animationBatteryStatus;
 
   void setupBatteryAnimation(){
     _batteryAnimationController = AnimationController(
@@ -28,6 +31,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     _animationBattery = CurvedAnimation(
         parent: _batteryAnimationController,
         curve: Interval(0.0, 0.5)
+    );
+
+    _animationBatteryStatus = CurvedAnimation(
+        parent: _batteryAnimationController,
+        curve: Interval(0.6, 1)
     );
 
   }
@@ -49,11 +57,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     return AnimatedBuilder(
       // it rebuilds the widget tree when any changes happend on our controller
       //this animation need listenable
-        animation: _controller,
-        builder: (context, snapshot){
+        animation: Listenable.merge([_controller, _batteryAnimationController]),
+        builder: (context, _){
           return Scaffold(
             bottomNavigationBar: TeslaBottomNavigationBar(
               onTap: (index){
+                if(index == 1)
+                  _batteryAnimationController.forward();
+                else if(_controller.selectedBottomTab == 1 && index != 1)
+                  _batteryAnimationController.reverse(from: 0.7);
                 _controller.onBottomNavigationTabChange(index);
               },
               selectedTab: _controller.selectedBottomTab,
@@ -131,9 +143,22 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           ),
                         ),
                         
-                        SvgPicture.asset(
-                          "assets/icons/Battery.svg",
-                          width: constrains.maxWidth * 0.45,
+                        Opacity(
+                          opacity: _animationBattery.value,
+                          child: SvgPicture.asset(
+                            "assets/icons/Battery.svg",
+                            width: constrains.maxWidth * 0.45,
+                          ),
+                        ),
+
+                        Positioned(
+                          top: 50 * (1 - _animationBatteryStatus.value),
+                            height: constrains.maxHeight,
+                            width: constrains.maxWidth,
+                            child: Opacity(
+                              opacity: _animationBatteryStatus.value,
+                              child: BatteryStatus(constrains: constrains,),
+                            )
                         )
 
                       ],
@@ -146,5 +171,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 }
+
 
 
