@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
         color: Colors.red,
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Text("Delete Band", style: TextStyle(color: Colors.white),),
+          child: Text("Delete Band Name", style: TextStyle(color: Colors.white),),
         ),
       ),
       child: ListTile(
