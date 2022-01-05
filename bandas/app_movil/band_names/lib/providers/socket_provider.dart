@@ -26,7 +26,8 @@ class SocketProvider with ChangeNotifier{
   void _initConfig(){
     // Dart client
     //Esta es la IPv4 que me da ipconfig
-    _socket = IO.io('http://192.168.1.134:3000/', {
+    //_socket = IO.io('http://192.168.1.134:3000/', {
+    _socket = IO.io('https://socket-server-bandas.herokuapp.com/', {
       'transports': ['websocket'],
       'autoConnect': true
     });
