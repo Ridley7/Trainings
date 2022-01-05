@@ -5,7 +5,8 @@ class BorderBox extends StatelessWidget {
 
   final Widget child;
   final EdgeInsets? padding;
-  final double? width, height;
+  final double? width;
+      final double? height;
 
   const BorderBox({
     Key? key,

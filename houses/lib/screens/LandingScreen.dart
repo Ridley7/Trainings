@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:houses/custom/BorderBox.dart';
 import 'package:houses/custom/OptionButton.dart';
+import 'package:houses/screens/DetailPage.dart';
 import 'package:houses/utils/constants.dart';
 import 'package:houses/utils/custom_functions.dart';
 import 'package:houses/utils/sample_data.dart';
@@ -148,50 +149,59 @@ class RealEstateItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(25.0),
-                child: Image.asset(itemData["image"]),
-              ),
+    return GestureDetector(
+      onTap: (){
+        Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => DetailPage(
+                  itemData: itemData,
+                )));
+      },
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(25.0),
+                  child: Image.asset(itemData["image"]),
+                ),
 
-              Positioned(
-                top: 15,
-                  right: 15,
-                  child: BorderBox(
-                    width: 50,
-                    height: 50,
-                    child: Icon(
-                      Icons.favorite_border,
-                      color: COLOR_BLACK,
-                    ),
-                  )
-              )
-            ],
-          ),
+                Positioned(
+                  top: 15,
+                    right: 15,
+                    child: BorderBox(
+                      width: 50,
+                      height: 50,
+                      child: Icon(
+                        Icons.favorite_border,
+                        color: COLOR_BLACK,
+                      ),
+                    )
+                )
+              ],
+            ),
 
-          addVerticalSpace(15),
-          Row(
-            children: [
-              Text("${formatCurrency(itemData["amount"])}",
-              style: themeData.textTheme.headline1,),
-              addHorizontalSpace(10),
-              Text(
-                "${itemData["address"]}",
-                style: themeData.textTheme.bodyText2,
-              )
-            ],
-          ),
-          addVerticalSpace(10),
-          Text(
-            "${itemData["bedrooms"]} bedrooms / ${itemData["bathrooms"]} bathrooms / ${itemData["area"]} sqft",
-            style: themeData.textTheme.headline5,
-          )
-        ],
+            addVerticalSpace(15),
+            Row(
+              children: [
+                Text("${formatCurrency(itemData["amount"])}",
+                style: themeData.textTheme.headline1,),
+                addHorizontalSpace(10),
+                Text(
+                  "${itemData["address"]}",
+                  style: themeData.textTheme.bodyText2,
+                )
+              ],
+            ),
+            addVerticalSpace(10),
+            Text(
+              "${itemData["bedrooms"]} bedrooms / ${itemData["bathrooms"]} bathrooms / ${itemData["area"]} sqft",
+              style: themeData.textTheme.headline5,
+            )
+          ],
+        ),
       ),
     );
   }
