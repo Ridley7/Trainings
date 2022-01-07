@@ -1,3 +1,4 @@
+import 'package:app_movil/widgets/boton_azul.dart';
 import 'package:app_movil/widgets/custom_input.dart';
 import 'package:app_movil/widgets/label.dart';
 import 'package:app_movil/widgets/logo.dart';
@@ -11,16 +12,23 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xffF2F2F2),
       body: SafeArea(
-        child: Column(
-          children: [
-            Logo(),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.9,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Logo(titulo: "Messenger"),
 
-            _Form(),
+                _Form(),
 
-            Labels(),
+                Labels(titulo: "¿No tienes cuenta?", subtitulo: "Crea una ahora", ruta: 'register',),
 
-            Text('Terminos y condiciones', style: TextStyle(fontWeight: FontWeight.w200),)
-          ],
+                Text('Terminos y condiciones', style: TextStyle(fontWeight: FontWeight.w200),)
+              ],
+            ),
+          ),
         ),
       )
     );
@@ -60,9 +68,13 @@ class _FormState extends State<_Form> {
               textController: passCtrl
           ),
 
-          RaisedButton(onPressed: (){
-            print(emailCtrl.text);
-          })
+          BotonAzul(
+              text: 'Ingrese',
+              callback: (){
+                print(emailCtrl.text);
+                print(passCtrl.text);
+              }
+          )
           //ElevatedButton(onPressed: null, child: Placeholder())
         ],
       ),
