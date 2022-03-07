@@ -1,3 +1,4 @@
+import 'package:bloc_api_ana_polo/ui/home/widgets/category_widget/categories_widget.dart';
 import 'package:bloc_api_ana_polo/ui/home/widgets/header_title/header_title.dart';
 import 'package:bloc_api_ana_polo/ui/widgets/container_body.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,8 @@ class HomeLayout extends StatelessWidget {
           const SizedBox(height: 40.0,),
           ContainerBody(
               children: [
-
+                CategoriesWidget(),
+                GamesByCategoryWidget(),
               ]
           )
         ],
