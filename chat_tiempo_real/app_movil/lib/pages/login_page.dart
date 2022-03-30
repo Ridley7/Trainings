@@ -1,8 +1,11 @@
+import 'package:app_movil/helpers/mostrar_alerta.dart';
+import 'package:app_movil/services/auth_service.dart';
 import 'package:app_movil/widgets/boton_azul.dart';
 import 'package:app_movil/widgets/custom_input.dart';
 import 'package:app_movil/widgets/label.dart';
 import 'package:app_movil/widgets/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -50,6 +53,9 @@ class _FormState extends State<_Form> {
 
   @override
   Widget build(BuildContext context) {
+
+    final authService = Provider.of<AuthService>(context);
+
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -70,9 +76,27 @@ class _FormState extends State<_Form> {
 
           BotonAzul(
               text: 'Ingrese',
-              callback: (){
-                print(emailCtrl.text);
-                print(passCtrl.text);
+              callback: authService.autenticando
+                  ? () => {}
+                  :() async {
+
+                print("flaf");
+
+                //Ocultamos el teclado por que nos estorba
+                FocusScope.of(context).unfocus();
+                final loginOk = await authService.login(emailCtrl.text.trim(), passCtrl.text.trim());
+
+                print("Aqui entro");
+                Navigator.pushReplacementNamed(context, 'usuarios');
+
+                if(loginOk){
+
+                }else{
+                  //Mostramos alerta
+                  mostrarAlerta(context, 'Login Incorrecto', 'Revise sus credenciales');
+                  print("Aqui tambien");
+                }
+
               }
           )
           //ElevatedButton(onPressed: null, child: Placeholder())
