@@ -1,5 +1,6 @@
 import 'package:app_movil/helpers/mostrar_alerta.dart';
 import 'package:app_movil/services/auth_service.dart';
+import 'package:app_movil/services/socket_service.dart';
 import 'package:app_movil/widgets/boton_azul.dart';
 import 'package:app_movil/widgets/custom_input.dart';
 import 'package:app_movil/widgets/label.dart';
@@ -55,6 +56,7 @@ class _FormState extends State<_Form> {
   Widget build(BuildContext context) {
 
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
 
     return Container(
       margin: EdgeInsets.only(top: 40),
@@ -86,10 +88,10 @@ class _FormState extends State<_Form> {
                 FocusScope.of(context).unfocus();
                 final loginOk = await authService.login(emailCtrl.text.trim(), passCtrl.text.trim());
 
-                print("Aqui entro");
-                Navigator.pushReplacementNamed(context, 'usuarios');
-
                 if(loginOk){
+
+                  socketService.connect();
+                  Navigator.pushReplacementNamed(context, 'usuarios');
 
                 }else{
                   //Mostramos alerta

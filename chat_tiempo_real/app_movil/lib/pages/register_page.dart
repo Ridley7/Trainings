@@ -1,5 +1,6 @@
 import 'package:app_movil/helpers/mostrar_alerta.dart';
 import 'package:app_movil/services/auth_service.dart';
+import 'package:app_movil/services/socket_service.dart';
 import 'package:app_movil/widgets/boton_azul.dart';
 import 'package:app_movil/widgets/custom_input.dart';
 import 'package:app_movil/widgets/label.dart';
@@ -56,6 +57,7 @@ class _FormState extends State<_Form> {
   Widget build(BuildContext context) {
 
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
 
     return Container(
       margin: EdgeInsets.only(top: 40),
@@ -94,6 +96,7 @@ class _FormState extends State<_Form> {
                 final registroOk = await authService.register(nameCtrl.text.trim(), emailCtrl.text.trim(), passCtrl.text.trim());
 
                 if(registroOk == true){
+                  socketService.connect();
                   Navigator.pushReplacementNamed(context, 'usuarios');
                 }else{
                     mostrarAlerta(context, 'Registro incorrecto', registroOk);
