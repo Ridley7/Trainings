@@ -66,9 +66,7 @@ class _HomeAppState extends State<HomeApp> {
               padding: EdgeInsets.all(8.0),
               children: alphabet.map((e) {
                 return RawMaterialButton(
-                    onPressed: Game.selectedChar.contains(e)
-                    ? null
-                    : () {
+                    onPressed: Game.selectedChar.contains(e) ? null : () {
                       setState(() {
                         Game.selectedChar.add(e);
                         if(!word.split('').contains(e.toUpperCase())){
