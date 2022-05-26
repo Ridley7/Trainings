@@ -5,7 +5,7 @@ void main() {
 }
 
 class MapsApp extends StatelessWidget {
-
+  
   const MapsApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.

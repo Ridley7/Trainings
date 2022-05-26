@@ -1,4 +1,4 @@
-#Tue Jan 18 15:00:56 CET 2022
-base.0=D\:\\Starglob 3\\Documents\\Practicas\\wordle\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
+#Thu May 26 19:52:57 CEST 2022
+base.0=D\:\\Documentos\\Trainings\\wordle\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
+path.0=classes.dex

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Starglob 3\\Documents\\Practicas\\wordle\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "D:\\Documentos\\Trainings\\wordle\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "D:\\Starglob 3\\Documents\\Practicas\\wordle\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "D:\\Documentos\\Trainings\\wordle\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
