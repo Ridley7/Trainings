@@ -1,4 +1,4 @@
-#Thu May 26 19:52:57 CEST 2022
+#Tue Jun 07 20:56:42 CEST 2022
 base.0=D\:\\Documentos\\Trainings\\wordle\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
