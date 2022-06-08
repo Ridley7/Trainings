@@ -5,7 +5,7 @@ import 'package:wordle/data/keys_map.dart';
 import 'package:wordle/models/TileModel.dart';
 
 class Controller extends ChangeNotifier{
-
+  bool checkline = false;
   String correctWord = "";
   int currentTile = 0;
   int currentRow = 0;
@@ -104,13 +104,10 @@ class Controller extends ChangeNotifier{
           }
         }
       }
-
+      currentRow++;
     }
 
-
-
-
-    currentRow++;
+    checkline = true;
     notifyListeners();
 
   }

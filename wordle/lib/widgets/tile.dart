@@ -48,21 +48,32 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin{
           text = notifier.tilesEntered[widget.index].letter;
           _answerStage = notifier.tilesEntered[widget.index].answerStage;
 
-          _animationController.forward();
+          if(notifier.checkline) {
+            final delay = widget.index - (notifier.currentRow - 1) * 5;
+            Future.delayed(Duration(milliseconds: 300 * delay), (){
+              _animationController.forward();
+              notifier.checkline = false;
+            });
 
-          _backgroundColor = Theme.of(context).primaryColorLight;
-          if(_answerStage == AnswerStage.correct){
-            _borderColor = Colors.transparent;
-            _backgroundColor = correctGreen;
-          }else if(_answerStage == AnswerStage.contains){
-            _borderColor = Colors.transparent;
-            _backgroundColor = containsYellow;
-          }else if(_answerStage == AnswerStage.incorrect){
-            _borderColor = Colors.transparent;
-            _backgroundColor = Theme.of(context).primaryColorDark;
-          }else{
-            fontColor = Theme.of(context).textTheme.bodyText2?.color ?? Colors.black;
-            _backgroundColor = Colors.transparent;
+            _backgroundColor = Theme
+                .of(context)
+                .primaryColorLight;
+            if (_answerStage == AnswerStage.correct) {
+              _backgroundColor = correctGreen;
+            } else if (_answerStage == AnswerStage.contains) {
+              _backgroundColor = containsYellow;
+            } else if (_answerStage == AnswerStage.incorrect) {
+              _backgroundColor = Theme
+                  .of(context)
+                  .primaryColorDark;
+            } else {
+              fontColor = Theme
+                  .of(context)
+                  .textTheme
+                  .bodyText2
+                  ?.color ?? Colors.black;
+              _backgroundColor = Colors.transparent;
+            }
           }
 
           return AnimatedBuilder(
@@ -80,18 +91,19 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin{
                   ..rotateX(flip),
                 child: Container(
                 decoration: BoxDecoration(
-                  color: _backgroundColor,
+                  color: flip > 0 ? _backgroundColor : Colors.transparent,
                   border: Border.all(
-                    color: _borderColor
+                    color: flip > 0 ? Colors.transparent : _borderColor
                   )
                 ),
                   child: FittedBox(
                     fit: BoxFit.contain,
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
-                          child: Text(text, style: TextStyle().copyWith(
+                          child: flip > 0 ?
+                          Text(text, style: TextStyle().copyWith(
                             color: fontColor
-                          ),)
+                          ),) : Text(text)
                       )
                   )
             ),
