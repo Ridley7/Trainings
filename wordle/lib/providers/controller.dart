@@ -6,6 +6,8 @@ import 'package:wordle/models/TileModel.dart';
 
 class Controller extends ChangeNotifier{
   bool checkline = false;
+  bool isBackOrEnter = false;
+  bool gameWon = false;
   String correctWord = "";
   int currentTile = 0;
   int currentRow = 0;
@@ -20,11 +22,13 @@ class Controller extends ChangeNotifier{
     //Comprobacion de la palabra
     if(value == 'ENTER'){
       if(currentTile == 5 * (currentRow + 1)){
+        isBackOrEnter = true;
         checkWord();
       }
       //Pulasamos la tecla borrar
     }else if(value == 'BACK'){
       if(currentTile > 5 * (currentRow + 1) - 5){
+        isBackOrEnter = true;
         currentTile--;
         tilesEntered.removeLast();
       }
@@ -33,6 +37,7 @@ class Controller extends ChangeNotifier{
     else{
       if(currentTile < 5 * (currentRow + 1)){
         tilesEntered.add(TileModel(letter: value, answerStage: AnswerStage.notAnswered));
+        isBackOrEnter = false;
         currentTile++;
       }
     }
@@ -58,9 +63,11 @@ class Controller extends ChangeNotifier{
 
       for(int i = currentRow * 5; i < (currentRow * 5) + 5; i++){
         tilesEntered[i].answerStage = AnswerStage.correct;
-        keysMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
+        keysMap.update(tilesEntered[i].letter, (value) =>
+        AnswerStage.correct
+        );
+        gameWon = true;
       }
-
     }else{
       //Si la palabra no es correcta, miramos cuales de las letras de la palabra
       //introducida estan correctamente en su lugar
@@ -98,15 +105,17 @@ class Controller extends ChangeNotifier{
         if(tilesEntered[i].answerStage == AnswerStage.notAnswered){
           tilesEntered[i].answerStage = AnswerStage.incorrect;
 
-          final results = keysMap.entries.where((element) => element.key == tilesEntered[i].letter);
+          final results = keysMap.entries.
+          where((element) => element.key == tilesEntered[i].letter);
           if(results.single.value == AnswerStage.notAnswered){
-            keysMap.update(tilesEntered[i].letter, (value) => AnswerStage.incorrect);
+            keysMap.update(
+                tilesEntered[i].letter, (value) => AnswerStage.incorrect);
           }
         }
       }
-      currentRow++;
     }
 
+    currentRow++;
     checkline = true;
     notifyListeners();
 

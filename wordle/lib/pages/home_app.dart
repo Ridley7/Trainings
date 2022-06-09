@@ -10,6 +10,7 @@ import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/widgets/grid.dart';
 import 'package:wordle/widgets/keyboard_row.dart';
+import 'package:wordle/widgets/stats_box.dart';
 
 class HomeApp extends StatefulWidget {
   @override
@@ -46,6 +47,9 @@ class _HomeAppState extends State<HomeApp> {
         centerTitle: true,
         elevation: 0,
         actions: [
+          IconButton(onPressed: (){
+            showDialog(context: context, builder: (_) => StatsBox());
+          }, icon: Icon(Icons.bar_chart_outlined)),
           IconButton(onPressed: (){
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const Settings())
