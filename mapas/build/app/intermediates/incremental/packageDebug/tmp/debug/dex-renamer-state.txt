@@ -1,0 +1,4 @@
+#Mon Apr 11 19:43:10 CEST 2022
+base.0=D\:\\Documentos\\Trainings\\mapas\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
