@@ -46,8 +46,13 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin{
   void didUpdateWidget(covariant Bounce oldWidget) {
     // TODO: implement didUpdateWidget
     if(widget.animate){
-      _animationController.reset();
-      _animationController.forward();
+      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+        if(mounted){
+          _animationController.reset();
+          _animationController.forward();
+        }
+      });
+
     }
     super.didUpdateWidget(oldWidget);
   }

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordle/calculate_stats.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/keys_map.dart';
 import 'package:wordle/models/TileModel.dart';
+import 'package:wordle/utils/calculate_chart_stats.dart';
 
 class Controller extends ChangeNotifier{
   bool checkline = false;
   bool isBackOrEnter = false;
   bool gameWon = false;
+  bool gameCompleted = false;
+  bool notEnoughLetters = false;
   String correctWord = "";
   int currentTile = 0;
   int currentRow = 0;
@@ -24,9 +28,12 @@ class Controller extends ChangeNotifier{
       if(currentTile == 5 * (currentRow + 1)){
         isBackOrEnter = true;
         checkWord();
+      }else{
+        notEnoughLetters = true;
       }
       //Pulasamos la tecla borrar
     }else if(value == 'BACK'){
+      notEnoughLetters = false;
       if(currentTile > 5 * (currentRow + 1) - 5){
         isBackOrEnter = true;
         currentTile--;
@@ -35,6 +42,8 @@ class Controller extends ChangeNotifier{
     }
     //Si pulsamos cualquier otra tecla
     else{
+      isBackOrEnter = false;
+      notEnoughLetters = false;
       if(currentTile < 5 * (currentRow + 1)){
         tilesEntered.add(TileModel(letter: value, answerStage: AnswerStage.notAnswered));
         isBackOrEnter = false;
@@ -67,6 +76,7 @@ class Controller extends ChangeNotifier{
         AnswerStage.correct
         );
         gameWon = true;
+        gameCompleted = true;
       }
     }else{
       //Si la palabra no es correcta, miramos cuales de las letras de la palabra
@@ -105,8 +115,8 @@ class Controller extends ChangeNotifier{
         if(tilesEntered[i].answerStage == AnswerStage.notAnswered){
           tilesEntered[i].answerStage = AnswerStage.incorrect;
 
-          final results = keysMap.entries.
-          where((element) => element.key == tilesEntered[i].letter);
+          final results = keysMap.entries.where((element) =>
+          element.key == tilesEntered[i].letter);
           if(results.single.value == AnswerStage.notAnswered){
             keysMap.update(
                 tilesEntered[i].letter, (value) => AnswerStage.incorrect);
@@ -117,6 +127,19 @@ class Controller extends ChangeNotifier{
 
     currentRow++;
     checkline = true;
+
+    if(currentRow == 6){
+      gameCompleted = true;
+    }
+
+    if(gameCompleted){
+      calculateStats(gameWon: gameWon);
+
+      if(gameWon){
+        setChartStats(currentRow: currentRow);
+      }
+    }
+
     notifyListeners();
 
   }

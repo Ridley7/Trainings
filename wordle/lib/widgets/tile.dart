@@ -28,13 +28,15 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin{
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      _borderColor = Theme.of(context).primaryColorLight;
-    });
-
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+     _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
     // TODO: implement initState
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _borderColor = Theme.of(context).primaryColorLight;
+    super.didChangeDependencies();
   }
 
   @override
@@ -51,7 +53,10 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin{
           if(notifier.checkline) {
             final delay = widget.index - (notifier.currentRow - 1) * 5;
             Future.delayed(Duration(milliseconds: 300 * delay), (){
-              _animationController.forward();
+              if(mounted){
+                _animationController.forward();
+              }
+
               notifier.checkline = false;
             });
 

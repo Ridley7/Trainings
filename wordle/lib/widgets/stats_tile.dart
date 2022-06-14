@@ -17,6 +17,7 @@ class StatsTile extends StatelessWidget {
         children: [
           Expanded(
             child: FittedBox(
+              fit: BoxFit.scaleDown,
               alignment: const Alignment(0, 1),
               child: Padding(
                 padding: const EdgeInsets.all(1),

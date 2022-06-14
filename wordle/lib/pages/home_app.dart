@@ -10,6 +10,7 @@ import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/widgets/grid.dart';
 import 'package:wordle/widgets/keyboard_row.dart';
+import 'package:wordle/widgets/run_quick_box.dart';
 import 'package:wordle/widgets/stats_box.dart';
 
 class HomeApp extends StatefulWidget {
@@ -47,9 +48,34 @@ class _HomeAppState extends State<HomeApp> {
         centerTitle: true,
         elevation: 0,
         actions: [
-          IconButton(onPressed: (){
-            showDialog(context: context, builder: (_) => StatsBox());
-          }, icon: Icon(Icons.bar_chart_outlined)),
+          Consumer<Controller>(
+              builder: (_, notifier, __){
+                if(notifier.notEnoughLetters){
+                  runQuickBox(context: context, message: 'Not Enough Letters');
+                }
+                if(notifier.gameCompleted){
+                  if(notifier.gameWon){
+                    if(notifier.currentRow == 6){
+                      runQuickBox(context: context, message: 'Phew!');
+                    }else{
+                      runQuickBox(context: context, message: 'Splendid');
+                    }
+                  }else{
+                    runQuickBox(context: context, message: notifier.correctWord);
+                  }
+                  Future.delayed(const Duration(milliseconds: 4000), (){
+                    if(mounted){
+                      showDialog(context: context, builder: (_) => const StatsBox());
+                    }
+                  });
+                }
+
+                return IconButton(onPressed: (){
+                  showDialog(context: context, builder: (_) => StatsBox());
+                }, icon: Icon(Icons.bar_chart_outlined));
+              }
+          ),
+
           IconButton(onPressed: (){
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const Settings())
