@@ -33,7 +33,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@R58MB3ME5PV]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -89,35 +88,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="549" y="163" key="FileChooserDialogImpl" timestamp="1653583333089">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1653583333089" />
-    <state width="1493" height="208" key="GridCell.Tab.0.bottom" timestamp="1655233021306">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1493" height="208" key="GridCell.Tab.0.bottom/0.0.1536.816@0.0.1536.816" timestamp="1655233021306" />
-    <state width="1493" height="208" key="GridCell.Tab.0.center" timestamp="1655233021290">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1493" height="208" key="GridCell.Tab.0.center/0.0.1536.816@0.0.1536.816" timestamp="1655233021290" />
-    <state width="1493" height="208" key="GridCell.Tab.0.left" timestamp="1655233021290">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1493" height="208" key="GridCell.Tab.0.left/0.0.1536.816@0.0.1536.816" timestamp="1655233021290" />
-    <state width="1493" height="208" key="GridCell.Tab.0.right" timestamp="1655233021290">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1493" height="208" key="GridCell.Tab.0.right/0.0.1536.816@0.0.1536.816" timestamp="1655233021290" />
-    <state x="277" y="53" key="SettingsEditor" timestamp="1653583341349">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state x="277" y="53" key="SettingsEditor/0.0.1536.816@0.0.1536.816" timestamp="1653583341349" />
-    <state width="498" height="528" key="SwitcherDM" timestamp="1654798616594">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="498" height="528" key="SwitcherDM/0.0.1536.816@0.0.1536.816" timestamp="1654798616594" />
   </component>
 </project>
