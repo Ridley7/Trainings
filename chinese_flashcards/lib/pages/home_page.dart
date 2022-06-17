@@ -1,3 +1,4 @@
+import 'package:chinese_flashcards/animations/fade_in_animatin.dart';
 import 'package:chinese_flashcards/configs/constants.dart';
 import 'package:chinese_flashcards/data/words.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             ),
-            Text("Chinese Flashcards\n中文足额西卡", textAlign: TextAlign.center,),
+            const FadeInAnimation(child: Text("Chinese Flashcards\n中文足额西卡", textAlign: TextAlign.center,)),
 
             Column(
               children: [
@@ -85,7 +86,11 @@ class _HomePageState extends State<HomePage> {
               flexibleSpace: FlexibleSpaceBar(
                 background: Padding(
                   padding: EdgeInsets.all(size.width * 0.10),
-                  child: Image.asset('assets/images/chinese_dragon.png'),
+                  child: FadeInAnimation(
+                      child: Image.asset(
+                          'assets/images/chinese_dragon.png'
+                      )
+                  ),
                 ),
               ),
             ),
