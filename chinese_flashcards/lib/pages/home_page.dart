@@ -1,3 +1,4 @@
+import 'package:chinese_flashcards/configs/constants.dart';
 import 'package:chinese_flashcards/data/words.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,35 @@ class _HomePageState extends State<HomePage> {
           )
         ),
         toolbarHeight: size.height * 0.15,
-        title: Text("Chinese Flashcards"),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  width: size.width * kIconPadding,
+                  child: Image.asset('assets/images/settings.png'),
+                ),
+                SizedBox(
+                  height: size.height * kIconPadding,
+                )
+              ],
+            ),
+            Text("Chinese Flashcards\n中文足额西卡", textAlign: TextAlign.center,),
+
+            Column(
+              children: [
+                SizedBox(
+                  width: size.width * kIconPadding,
+                  child: Image.asset('assets/images/review.png'),
+                ),
+                SizedBox(
+                  height: size.height * kIconPadding,
+                )
+              ],
+            ),
+          ],
+        ),
         centerTitle: true,
         elevation: 0,
       ),
@@ -51,11 +80,12 @@ class _HomePageState extends State<HomePage> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               expandedHeight: size.height * 0.4,
               flexibleSpace: FlexibleSpaceBar(
                 background: Padding(
                   padding: EdgeInsets.all(size.width * 0.10),
-                  child: Text("Home Page Image"),
+                  child: Image.asset('assets/images/chinese_dragon.png'),
                 ),
               ),
             ),

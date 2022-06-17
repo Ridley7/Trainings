@@ -12,11 +12,11 @@ class TopicTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        
+
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Column(
