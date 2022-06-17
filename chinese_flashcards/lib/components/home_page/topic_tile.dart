@@ -1,4 +1,5 @@
-import 'package:chinese_flashcards/animations/fade_in_animatin.dart';
+import 'package:chinese_flashcards/animations/fade_in_animation.dart';
+import 'package:chinese_flashcards/utils/methods.dart';
 import 'package:flutter/material.dart';
 
 class TopicTile extends StatelessWidget {
@@ -14,7 +15,7 @@ class TopicTile extends StatelessWidget {
     return FadeInAnimation(
       child: GestureDetector(
         onTap: (){
-
+          loadSession(context: context);
         },
         child: Container(
           decoration: BoxDecoration(
