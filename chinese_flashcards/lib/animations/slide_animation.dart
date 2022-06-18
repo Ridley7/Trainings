@@ -27,7 +27,7 @@ class _SlideAnimationState extends State<SlideAnimation> with SingleTickerProvid
 
     _animationController = AnimationController(
         vsync: this,
-      duration: const Duration(milliseconds: 4000)
+      duration: const Duration(milliseconds: 400)
     );
 
     if(widget.animate){

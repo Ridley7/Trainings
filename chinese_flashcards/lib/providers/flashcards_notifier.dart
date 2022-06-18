@@ -10,4 +10,18 @@ class FlashcardsNotifiers extends ChangeNotifier{
     notifyListeners();
   }
 
+  bool flipCard1 = false;
+
+  runFlipCard1(){
+    flipCard1 = true;
+    notifyListeners();
+  }
+
+  bool flipCard2 = false;
+
+  runFlipCard2(){
+    flipCard2 = true;
+    notifyListeners();
+  }
+
 }
