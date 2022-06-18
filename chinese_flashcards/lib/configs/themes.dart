@@ -18,7 +18,9 @@ final appTheme = ThemeData(
       fontSize: 20,
       fontWeight: FontWeight.bold,
     ),
-    color: kRed
+    color: kRed,
+    centerTitle: true,
+    elevation: 0,
   ),
 
   scaffoldBackgroundColor: kYellow

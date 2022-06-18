@@ -28,7 +28,9 @@ class TopicTile extends StatelessWidget {
                 flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Image.asset('assets/images/$topic.png'),
+                    child: Hero(
+                      tag: topic,
+                        child: Image.asset('assets/images/$topic.png')),
                   ),
               ),
 
