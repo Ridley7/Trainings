@@ -18,6 +18,17 @@ class Card2 extends StatelessWidget {
 
     return Consumer<FlashcardsNotifiers>(
       builder: (_, notifier, __) => GestureDetector(
+
+        onHorizontalDragEnd: (details){
+          if(details.primaryVelocity! > 100){
+            notifier.runSwipeCard2(direction: SlideDirection.leftAway);
+          }
+
+          if(details.primaryVelocity! < -100){
+            notifier.runSwipeCard2(direction: SlideDirection.rightAway);
+          }
+        },
+
         child: HalfFlipAnimation(
           animate: notifier.flipCard2,
           reset: false,
@@ -26,7 +37,8 @@ class Card2 extends StatelessWidget {
 
           },
           child: SlideAnimation(
-              direction: SlideDirection.upIn  ,
+              animate:notifier.swipeCard2,
+              direction: notifier.swipeDirection,
               child: Center(
                 child: Container(
                   width: size.width * 0.9,

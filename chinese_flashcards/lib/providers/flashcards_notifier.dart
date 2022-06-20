@@ -1,3 +1,4 @@
+import 'package:chinese_flashcards/enums/slide_direction.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,15 @@ class FlashcardsNotifiers extends ChangeNotifier{
 
   runFlipCard2(){
     flipCard2 = true;
+    notifyListeners();
+  }
+
+  bool swipeCard2 = false;
+  SlideDirection swipeDirection = SlideDirection.none;
+
+  runSwipeCard2({required SlideDirection direction}){
+    swipeDirection = direction;
+    swipeCard2 = true;
     notifyListeners();
   }
 
