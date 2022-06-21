@@ -22,21 +22,29 @@ class Card2 extends StatelessWidget {
         onHorizontalDragEnd: (details){
           if(details.primaryVelocity! > 100){
             notifier.runSwipeCard2(direction: SlideDirection.leftAway);
+            notifier.runSlideCard1();
+            notifier.setIgnoreTouch(ignore: true);
           }
 
           if(details.primaryVelocity! < -100){
             notifier.runSwipeCard2(direction: SlideDirection.rightAway);
+            notifier.runSlideCard1();
+            notifier.setIgnoreTouch(ignore: true);
           }
         },
 
         child: HalfFlipAnimation(
           animate: notifier.flipCard2,
-          reset: false,
+          reset: notifier.resetFlipCard2,
           flipFromHalfWay: true,
           animationCompleted: (){
-
+            notifier.setIgnoreTouch(ignore: false);
           },
           child: SlideAnimation(
+            onAnimationCompleted: (){
+              notifier.resetCard2();
+            },
+            reset: notifier.resetSwipeCard2,
               animate:notifier.swipeCard2,
               direction: notifier.swipeDirection,
               child: Center(

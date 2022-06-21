@@ -16,6 +16,16 @@ class FlashCardsPage extends StatefulWidget {
 class _FlashCardsPageState extends State<FlashCardsPage> {
 
   @override
+  void initState() {
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<FlashcardsNotifiers>(context, listen: false).runSlideCard1();
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return Consumer<FlashcardsNotifiers>(
@@ -25,11 +35,14 @@ class _FlashCardsPageState extends State<FlashCardsPage> {
             child: CustomAppBar()
         ),
 
-        body: Stack(
-          children: [
-            Card2(),
-            Card1(),
-          ],
+        body: IgnorePointer(
+          ignoring: notifier.ignoreTouches,
+          child: Stack(
+            children: const [
+              Card2(),
+              Card1(),
+            ],
+          ),
         ),
       ),
     );
