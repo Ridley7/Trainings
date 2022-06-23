@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:chinese_flashcards/animations/half_flip_animation.dart';
 import 'package:chinese_flashcards/animations/slide_animation.dart';
+import 'package:chinese_flashcards/components/flashcards_page/card_display.dart';
+import 'package:chinese_flashcards/configs/constants.dart';
 import 'package:chinese_flashcards/enums/slide_direction.dart';
 import 'package:chinese_flashcards/providers/flashcards_notifier.dart';
 import 'package:flutter/material.dart';
@@ -54,9 +58,18 @@ class Card2 extends StatelessWidget {
                   width: size.width * 0.9,
                   height: size.height * 0.70,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor
+                    borderRadius: BorderRadius.circular(kCircularBorderRadius),
+                      border: Border.all(
+                        color: Colors.white,
+                        width: kCardBorderWidth
+                      ),
+                      color: Theme.of(context).primaryColor,
                   ),
-                  child: Text(notifier.word2.character),
+                  child: Transform(
+                    alignment: Alignment.center,
+                      transform: Matrix4.rotationY(pi),
+                      child: const CardDisplay(isCard1: false,)
+                  ),
                 ),
               )
           ),

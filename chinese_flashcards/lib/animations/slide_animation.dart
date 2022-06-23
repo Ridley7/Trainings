@@ -9,6 +9,8 @@ class SlideAnimation extends StatefulWidget {
     this.animate = true,
     this.reset,
     this.onAnimationCompleted,
+    this.animationDuration = kSlideAwayDuration,
+    this.animationDelay = 0,
     Key? key}) : super(key: key);
 
   final Widget child;
@@ -16,6 +18,8 @@ class SlideAnimation extends StatefulWidget {
   final bool animate;
   final bool? reset;
   final VoidCallback? onAnimationCompleted;
+  final int animationDuration;
+  final int animationDelay;
 
   @override
   State<SlideAnimation> createState() => _SlideAnimationState();
@@ -31,16 +35,13 @@ class _SlideAnimationState extends State<SlideAnimation> with SingleTickerProvid
 
     _animationController = AnimationController(
         vsync: this,
-      duration: const Duration(milliseconds: kSlideAwayDuration)
+      duration: Duration(milliseconds: widget.animationDuration)
     )..addListener(() {
       if(_animationController.isCompleted){
         widget.onAnimationCompleted?.call();
       }
     });
 
-    if(widget.animate){
-      _animationController.forward();
-    }
 
     super.initState();
   }
@@ -53,7 +54,17 @@ class _SlideAnimationState extends State<SlideAnimation> with SingleTickerProvid
     }
 
     if(widget.animate){
-      _animationController.forward();
+      if(widget.animationDuration > 0){
+        Future.delayed(Duration(milliseconds: widget.animationDelay),(){
+          if(mounted){
+            _animationController.forward();
+          }
+        });
+        
+      }else{
+        _animationController.forward();  
+      }
+      
     }
     super.didUpdateWidget(oldWidget);
   }

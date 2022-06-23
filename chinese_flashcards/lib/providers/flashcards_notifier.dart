@@ -10,8 +10,8 @@ import '../data/words.dart';
 class FlashcardsNotifiers extends ChangeNotifier{
 
   String topic = "";
-  Word word1 = Word(topic: "", english: "", character: "", pinyin: "");
-  Word word2 = Word(topic: "", english: "", character: "", pinyin: "");
+  Word word1 = Word(topic: "", english: "Loading Arrows", character: "", pinyin: "");
+  Word word2 = Word(topic: "", english: "Loading Arrows", character: "", pinyin: "");
   List<Word> selectedWords = [];
 
   setTopic({required String topic}){

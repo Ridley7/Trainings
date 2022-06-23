@@ -9,7 +9,13 @@ final appTheme = ThemeData(
       color: Colors.white,
       fontSize: 18,
       fontFamily: GoogleFonts.notoSans().fontFamily
-    )
+    ),
+    headline1: TextStyle(
+        color: Colors.white,
+        fontSize: 58,
+        fontFamily: GoogleFonts.notoSans().fontFamily,
+      fontWeight: FontWeight.bold
+    ),
   ),
 
   appBarTheme: AppBarTheme(
