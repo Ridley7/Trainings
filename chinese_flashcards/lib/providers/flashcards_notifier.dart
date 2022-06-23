@@ -1,12 +1,46 @@
+import 'dart:math';
+
+import 'package:chinese_flashcards/configs/constants.dart';
 import 'package:chinese_flashcards/enums/slide_direction.dart';
+import 'package:chinese_flashcards/models/word.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+import '../data/words.dart';
 
 class FlashcardsNotifiers extends ChangeNotifier{
 
   String topic = "";
-  SlideDirection swipeDirection = SlideDirection.none;
+  Word word1 = Word(topic: "", english: "", character: "", pinyin: "");
+  Word word2 = Word(topic: "", english: "", character: "", pinyin: "");
+  List<Word> selectedWords = [];
 
+  setTopic({required String topic}){
+    this.topic = topic;
+    notifyListeners();
+  }
+
+  generateCurrentWord(){
+
+    if(selectedWords.isNotEmpty){
+      final r = Random().nextInt(selectedWords.length);
+      word1 = selectedWords[r];
+      selectedWords.removeAt(r);
+    }else{
+      print('All words selected');
+    }
+    
+    Future.delayed(const Duration(milliseconds: kSlideAwayDuration), (){
+      word2 = word1;
+    });
+  }
+
+  generateAllSelectedWords(){
+    selectedWords.clear();
+    selectedWords = words.where((element) => element.topic == topic).toList();
+  }
+
+  //Codigo para las animaciones
+  
   bool flipCard1 = false;
   bool slideCard1 = false;
   bool resetSlideCard1 = false;
@@ -18,16 +52,13 @@ class FlashcardsNotifiers extends ChangeNotifier{
   bool resetSwipeCard2 = false;
 
   bool ignoreTouches = true;
+  SlideDirection swipeDirection = SlideDirection.none;
 
   setIgnoreTouch({required bool ignore}){
     ignoreTouches = ignore;
     notifyListeners();
   }
 
-  setTopic({required String topic}){
-    this.topic = topic;
-    notifyListeners();
-  }
 
   runSlideCard1(){
     slideCard1 = true;

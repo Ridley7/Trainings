@@ -19,7 +19,10 @@ class _FlashCardsPageState extends State<FlashCardsPage> {
   void initState() {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<FlashcardsNotifiers>(context, listen: false).runSlideCard1();
+      final flashcardsNotifiers = Provider.of<FlashcardsNotifiers>(context, listen: false);
+      flashcardsNotifiers.runSlideCard1();
+      flashcardsNotifiers.generateAllSelectedWords();
+      flashcardsNotifiers.generateCurrentWord();
     });
 
     super.initState();

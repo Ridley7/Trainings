@@ -24,12 +24,14 @@ class Card2 extends StatelessWidget {
             notifier.runSwipeCard2(direction: SlideDirection.leftAway);
             notifier.runSlideCard1();
             notifier.setIgnoreTouch(ignore: true);
+            notifier.generateCurrentWord();
           }
 
           if(details.primaryVelocity! < -100){
             notifier.runSwipeCard2(direction: SlideDirection.rightAway);
             notifier.runSlideCard1();
             notifier.setIgnoreTouch(ignore: true);
+            notifier.generateCurrentWord();
           }
         },
 
@@ -54,6 +56,7 @@ class Card2 extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor
                   ),
+                  child: Text(notifier.word2.character),
                 ),
               )
           ),
