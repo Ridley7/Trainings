@@ -1,5 +1,7 @@
+
 import 'dart:math';
 
+import 'package:chinese_flashcards/components/flashcards_page/results_box.dart';
 import 'package:chinese_flashcards/configs/constants.dart';
 import 'package:chinese_flashcards/enums/slide_direction.dart';
 import 'package:chinese_flashcards/models/word.dart';
@@ -9,24 +11,43 @@ import '../data/words.dart';
 
 class FlashcardsNotifiers extends ChangeNotifier{
 
+  List<Word> incorrectCards = [];
+
   String topic = "";
   Word word1 = Word(topic: "", english: "Loading Arrows", character: "", pinyin: "");
   Word word2 = Word(topic: "", english: "Loading Arrows", character: "", pinyin: "");
   List<Word> selectedWords = [];
+
+  bool isFirstRound = true;
+  bool isRoundCompleted = false;
+  bool isSessionCompleted = false;
+
+  reset(){
+    isFirstRound = true;
+    isRoundCompleted = false;
+    isSessionCompleted = false;
+  }
 
   setTopic({required String topic}){
     this.topic = topic;
     notifyListeners();
   }
 
-  generateCurrentWord(){
+  generateCurrentWord({required BuildContext context}){
 
     if(selectedWords.isNotEmpty){
       final r = Random().nextInt(selectedWords.length);
       word1 = selectedWords[r];
       selectedWords.removeAt(r);
     }else{
-      print('All words selected');
+      if(incorrectCards.isEmpty){
+        isSessionCompleted = true;
+      }
+      isFirstRound = false;
+      isRoundCompleted = true;
+      Future.delayed(const Duration(milliseconds: 500),(){
+        showDialog(context: context, builder: (context) => const ResultsBox());
+      });
     }
     
     Future.delayed(const Duration(milliseconds: kSlideAwayDuration), (){
@@ -34,9 +55,26 @@ class FlashcardsNotifiers extends ChangeNotifier{
     });
   }
 
+  updateCardOutcome({required Word word, required bool isCorrect}){
+    if(!isCorrect){
+      incorrectCards.add(word);
+    }
+
+    incorrectCards.forEach((element) => print(element.english));
+
+    notifyListeners();
+  }
+
   generateAllSelectedWords(){
     selectedWords.clear();
-    selectedWords = words.where((element) => element.topic == topic).toList();
+    isRoundCompleted = false;
+    if(isFirstRound){
+      selectedWords = words.where((element) => element.topic == topic).toList();
+    }else{
+      selectedWords = incorrectCards.toList();
+      incorrectCards.clear();
+    }
+
   }
 
   //Codigo para las animaciones
@@ -79,6 +117,7 @@ class FlashcardsNotifiers extends ChangeNotifier{
   }
 
   runSwipeCard2({required SlideDirection direction}){
+    updateCardOutcome(word: word2, isCorrect: direction == SlideDirection.leftAway);
     swipeDirection = direction;
     swipeCard2 = true;
     resetSwipeCard2 = false;
