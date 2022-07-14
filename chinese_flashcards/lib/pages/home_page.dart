@@ -1,7 +1,10 @@
 import 'package:chinese_flashcards/animations/fade_in_animation.dart';
 import 'package:chinese_flashcards/configs/constants.dart';
 import 'package:chinese_flashcards/data/words.dart';
+import 'package:chinese_flashcards/pages/settings_page.dart';
+import 'package:chinese_flashcards/providers/flashcards_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../components/home_page/topic_tile.dart';
 
@@ -48,9 +51,15 @@ class _HomePageState extends State<HomePage> {
           children: [
             Column(
               children: [
-                SizedBox(
-                  width: size.width * kIconPadding,
-                  child: Image.asset('assets/images/settings.png'),
+                GestureDetector(
+                  onTap: (){
+                    Provider.of<FlashcardsNotifiers>(context, listen: false).setTopic(topic: 'settings');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
+                  },
+                  child: SizedBox(
+                    width: size.width * kIconPadding,
+                    child: Image.asset('assets/images/settings.png'),
+                  ),
                 ),
                 SizedBox(
                   height: size.height * kIconPadding,

@@ -59,6 +59,15 @@ final appTheme = ThemeData(
         fontSize:15
       )
     )
+  ),
+
+  progressIndicatorTheme: ProgressIndicatorThemeData(
+    color: kRed,
+    linearTrackColor: Colors.grey,
+  ),
+
+  switchTheme: SwitchThemeData(
+    thumbColor: MaterialStateProperty.all<Color>(kRed)
   )
 
 );
