@@ -11,6 +11,17 @@ import '../data/words.dart';
 
 class FlashcardsNotifiers extends ChangeNotifier{
 
+  int roundTotally = 0;
+  int cardTotally = 0;
+  int correctTotally = 0;
+  int incorrectTotally = 0;
+  int correctPercentage = 0;
+
+  calculateCorrectPercentage(){
+    final percentage = correctTotally / cardTotally;
+    correctPercentage = (percentage * 100).round();
+  }
+
   List<Word> incorrectCards = [];
 
   String topic = "";
@@ -26,6 +37,7 @@ class FlashcardsNotifiers extends ChangeNotifier{
     isFirstRound = true;
     isRoundCompleted = false;
     isSessionCompleted = false;
+    roundTotally = 0;
   }
 
   setTopic({required String topic}){
@@ -45,6 +57,7 @@ class FlashcardsNotifiers extends ChangeNotifier{
       }
       isFirstRound = false;
       isRoundCompleted = true;
+      calculateCorrectPercentage();
       Future.delayed(const Duration(milliseconds: 500),(){
         showDialog(context: context, builder: (context) => const ResultsBox());
       });
@@ -58,14 +71,16 @@ class FlashcardsNotifiers extends ChangeNotifier{
   updateCardOutcome({required Word word, required bool isCorrect}){
     if(!isCorrect){
       incorrectCards.add(word);
+      incorrectTotally++;
+    }else{
+      correctTotally++;
     }
-
-    incorrectCards.forEach((element) => print(element.english));
 
     notifyListeners();
   }
 
   generateAllSelectedWords(){
+
     selectedWords.clear();
     isRoundCompleted = false;
     if(isFirstRound){
@@ -74,6 +89,11 @@ class FlashcardsNotifiers extends ChangeNotifier{
       selectedWords = incorrectCards.toList();
       incorrectCards.clear();
     }
+
+    roundTotally++;
+    cardTotally = selectedWords.length;
+    correctTotally = 0;
+    incorrectTotally = 0;
 
   }
 
