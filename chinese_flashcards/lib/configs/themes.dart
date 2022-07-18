@@ -61,7 +61,7 @@ final appTheme = ThemeData(
     )
   ),
 
-  progressIndicatorTheme: ProgressIndicatorThemeData(
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: kRed,
     linearTrackColor: Colors.grey,
   ),
