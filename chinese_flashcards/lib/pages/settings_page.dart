@@ -20,7 +20,12 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<SettingsNotifier>(
-      builder: (_, notifier, __) => Scaffold(
+      builder: (_, notifier, __) {
+
+        bool audioFirst = notifier.displayOptions.entries.firstWhere((element) =>
+        element.key == Settings.audioOnly).value;
+
+        return Scaffold(
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kAppBarHeight),
           child: CustomAppBar(),
@@ -29,10 +34,10 @@ class _SettingsPageState extends State<SettingsPage> {
         body: Stack(
           children: [
             Column(
-              children: const [
-                SwitchButton(displayOption: Settings.englishFirst,),
-                SwitchButton(displayOption: Settings.showPinyin),
-                SwitchButton(displayOption: Settings.audioOnly)
+              children: [
+                SwitchButton(disabled: audioFirst, displayOption: Settings.englishFirst,),
+                const SwitchButton(displayOption: Settings.showPinyin),
+                const SwitchButton(displayOption: Settings.audioOnly)
               ],
             ),
 
@@ -50,7 +55,8 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         ),
 
-      ),
+      );
+      },
     );
   }
 }

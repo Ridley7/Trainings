@@ -14,12 +14,17 @@ class SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: icon,
-      title: Text(title),
-      onTap: (){
-        callback();
-      },
+    return Column(
+      children: [
+        const Divider(height: 1, thickness: 1,),
+        ListTile(
+          leading: icon,
+          title: Text(title),
+          onTap: (){
+            callback();
+          },
+        ),
+      ],
     );
   }
 }
