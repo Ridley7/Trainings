@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../components/home_page/topic_tile.dart';
+import 'review_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -70,9 +71,15 @@ class _HomePageState extends State<HomePage> {
 
             Column(
               children: [
-                SizedBox(
-                  width: size.width * kIconPadding,
-                  child: Image.asset('assets/images/review.png'),
+                GestureDetector(
+                  onTap: (){
+                    Provider.of<FlashcardsNotifiers>(context, listen: false).setTopic(topic: 'review');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ReviewPage()));
+                  },
+                  child: SizedBox(
+                    width: size.width * kIconPadding,
+                    child: Image.asset('assets/images/review.png'),
+                  ),
                 ),
                 SizedBox(
                   height: size.height * kIconPadding,
