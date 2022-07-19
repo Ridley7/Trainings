@@ -1,8 +1,10 @@
 import 'package:chinese_flashcards/enums/settings.dart';
 import 'package:chinese_flashcards/pages/flashcards_page.dart';
 import 'package:chinese_flashcards/providers/flashcards_notifier.dart';
+import 'package:chinese_flashcards/providers/settings_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 loadSession({required BuildContext context, required String topic}){
   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FlashCardsPage()));
@@ -21,5 +23,25 @@ extension SettingsToText on Settings{
         return "Test Listening";
     }
   }
+}
 
+updatePreferencesOnRestart({required BuildContext context}){
+  final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
+
+  for(var e in settingsNotifier.displayOptions.entries){
+    SharedPreferences.getInstance().then((prefs) {
+      final result = prefs.getBool(e.key.name);
+      if(result != null){
+        settingsNotifier.displayOptions.update(e.key, (value) => result);
+      }
+    });
+  }
+}
+
+clearPreferences(){
+  SharedPreferences.getInstance().then((prefs) {
+    for(var e in SettingsNotifier().displayOptions.entries){
+      prefs.remove(e.key.name);
+    }
+  });
 }
