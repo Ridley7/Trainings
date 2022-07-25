@@ -1,11 +1,15 @@
 import 'package:chinese_flashcards/configs/constants.dart';
+import 'package:chinese_flashcards/models/word.dart';
 import 'package:chinese_flashcards/providers/flashcards_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 
 class TTSButton extends StatefulWidget {
-  const TTSButton({Key? key}) : super(key: key);
+  const TTSButton({Key? key, required this.word, this.iconSize = 50}) : super(key: key);
+
+  final Word word;
+  final double iconSize;
 
   @override
   State<TTSButton> createState() => _TTSButtonState();
@@ -19,7 +23,9 @@ class _TTSButtonState extends State<TTSButton> {
   @override
   void initState() {
     // TODO: implement initState
-    _setupTts();
+    Future.delayed(Duration(milliseconds: 500), (){
+      _setupTts();
+    });
     super.initState();
   }
 
@@ -32,23 +38,19 @@ class _TTSButtonState extends State<TTSButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FlashcardsNotifiers>(
-      builder: (_, notifier, __) {
-        return Expanded(
-          child: IconButton(
-            onPressed: (){
-              _isTapped = true;
-              _runTts(text: notifier.word1.character);
+    return Expanded(
+        child: IconButton(
+          onPressed: (){
+            _isTapped = true;
+            _runTts(text: widget.word.character);
+            setState((){});
+            Future.delayed(const Duration(milliseconds: 500), (){
+              _isTapped = false;
               setState((){});
-              Future.delayed(Duration(milliseconds: 500), (){
-                _isTapped = false;
-                setState((){});
-              });
-            },
-            icon: Icon(Icons.audiotrack, size: 50, color: _isTapped ? kYellow : Colors.white,),
-          )
-      );
-      },
+            });
+          },
+          icon: Icon(Icons.audiotrack, size: widget.iconSize, color: _isTapped ? kYellow : Colors.white,),
+        )
     );
   }
 

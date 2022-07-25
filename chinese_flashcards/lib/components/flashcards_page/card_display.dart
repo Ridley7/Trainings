@@ -1,4 +1,4 @@
-import 'package:chinese_flashcards/components/flashcards_page/tts_button.dart';
+import 'package:chinese_flashcards/components/app/tts_button.dart';
 import 'package:chinese_flashcards/enums/settings.dart';
 import 'package:chinese_flashcards/providers/flashcards_notifier.dart';
 import 'package:chinese_flashcards/providers/settings_notifier.dart';
@@ -33,7 +33,7 @@ class CardDisplay extends StatelessWidget {
           builder: (_, notifier, __) =>  isCard1 ? Column(
             children: [
               if(audioOnly) ... [
-                TTSButton()
+                TTSButton(word: notifier.word1,)
               ]else if(showPinyin) ... [
                 buildTextBox(notifier.word1.character, context, 1),
                 showPinyin ? buildTextBox(notifier.word1.pinyin, context, 1) : SizedBox(),
@@ -51,11 +51,11 @@ class CardDisplay extends StatelessWidget {
                 buildTextBox(notifier.word2.english, context, 2),
                 buildTextBox(notifier.word2.character, context, 2),
                 showPinyin ? buildTextBox(notifier.word2.pinyin, context, 1) : SizedBox(),
-                const TTSButton(),
+                TTSButton(word: notifier.word1,),
               ] else if(showPinyin)...[
                 buildImage(notifier.word2.english),
                 buildTextBox(notifier.word2.english, context, 2),
-                const TTSButton(),
+                TTSButton(word: notifier.word1,),
               ]else ...[
                 buildImage(notifier.word2.english),
                 buildTextBox(notifier.word2.character, context, 2),

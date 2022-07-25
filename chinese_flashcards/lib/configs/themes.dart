@@ -68,6 +68,19 @@ final appTheme = ThemeData(
 
   switchTheme: SwitchThemeData(
     thumbColor: MaterialStateProperty.all<Color>(kRed)
+  ),
+
+  listTileTheme: ListTileThemeData(
+    tileColor: kRed,
+    textColor: Colors.white,
+    iconColor: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(kCircularBorderRadius),
+      side: const BorderSide(
+        color: Colors.white,
+        width: 2
+      )
+    )
   )
 
 );
