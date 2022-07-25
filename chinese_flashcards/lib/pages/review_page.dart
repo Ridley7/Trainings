@@ -1,7 +1,9 @@
 import 'package:chinese_flashcards/components/app/custom_app_bar.dart';
+import 'package:chinese_flashcards/components/review_page/language_button.dart';
 import 'package:chinese_flashcards/components/review_page/review_page.dart';
 import 'package:chinese_flashcards/components/review_page/word_tile.dart';
 import 'package:chinese_flashcards/configs/constants.dart';
+import 'package:chinese_flashcards/enums/language_type.dart';
 import 'package:chinese_flashcards/models/word.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +74,20 @@ class _ReviewPageState extends State<ReviewPage> {
                   },
                 ),
               )
+          ),
+
+          Expanded(
+              flex: 1,
+              child: Row(
+                children: const [
+                  LanguageButton(languageType: LanguageType.image,),
+                  LanguageButton(languageType: LanguageType.english,),
+                  LanguageButton(languageType: LanguageType.character,),
+                  LanguageButton(languageType: LanguageType.pinyin,),
+                ],
+              )
           )
+
         ],
       ),
     );
@@ -104,4 +119,3 @@ class _ReviewPageState extends State<ReviewPage> {
     });
   }
 }
-

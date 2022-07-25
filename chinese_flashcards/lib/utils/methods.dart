@@ -1,3 +1,4 @@
+import 'package:chinese_flashcards/enums/language_type.dart';
 import 'package:chinese_flashcards/enums/settings.dart';
 import 'package:chinese_flashcards/pages/flashcards_page.dart';
 import 'package:chinese_flashcards/providers/flashcards_notifier.dart';
@@ -12,7 +13,6 @@ loadSession({required BuildContext context, required String topic}){
 }
 
 extension SettingsToText on Settings{
-
   String toText(){
     switch(this){
       case Settings.englishFirst:
@@ -21,6 +21,21 @@ extension SettingsToText on Settings{
         return "Show Pinyin";
       case Settings.audioOnly:
         return "Test Listening";
+    }
+  }
+}
+
+extension LanguageSymbol on LanguageType{
+  String toSymbol(){
+    switch(this){
+      case LanguageType.image:
+        return '🖼️';
+      case LanguageType.english:
+        return 'Abc';
+      case LanguageType.character:
+        return '汉字';
+      case LanguageType.pinyin:
+        return 'Pin';
     }
   }
 }

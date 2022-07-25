@@ -1,6 +1,8 @@
 import 'package:chinese_flashcards/components/app/tts_button.dart';
 import 'package:chinese_flashcards/models/word.dart';
+import 'package:chinese_flashcards/providers/language_button_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class WordTile extends StatelessWidget {
   WordTile({
@@ -27,33 +29,37 @@ class WordTile extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
-        child: ListTile(
-          leading: SizedBox(
-            width: 50,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset('assets/images/${word.english}.png'),
-            ),
-          ),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(word.english),
-              Text(word.character),
-              Text(word.pinyin),
-            ],
-          ),
-          trailing: SizedBox(
-            width: 80,
-            child: Row(
+        child: Consumer<LanguageButtonNotifier>(
+          builder: (_, notifier, __) => ListTile(
+            leading: notifier.showImage ? SizedBox(
+              width: 50,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset('assets/images/${word.english}.png'),
+              ),
+            )
+            :
+            const SizedBox(),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TTSButton(word: word, iconSize: 25,),
-                Expanded(
-                  child: IconButton(icon: Icon(Icons.clear), onPressed: (){
-                    callback?.call();
-                  },),
-                ),
+                notifier.showEnglish ? Text(word.english) : const SizedBox(),
+                notifier.showCharacter ? Text(word.character) : const SizedBox(),
+                notifier.showPinyin ? Text(word.pinyin) : const SizedBox(),
               ],
+            ),
+            trailing: SizedBox(
+              width: 80,
+              child: Row(
+                children: [
+                  TTSButton(word: word, iconSize: 25,),
+                  Expanded(
+                    child: IconButton(icon: Icon(Icons.clear), onPressed: (){
+                      callback?.call();
+                    },),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

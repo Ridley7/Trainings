@@ -1,5 +1,6 @@
 import 'package:chinese_flashcards/configs/themes.dart';
 import 'package:chinese_flashcards/pages/home_page.dart';
+import 'package:chinese_flashcards/providers/language_button_notifier.dart';
 import 'package:chinese_flashcards/providers/settings_notifier.dart';
 import 'package:chinese_flashcards/utils/methods.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => FlashcardsNotifiers()),
         ChangeNotifierProvider(create: (_) => SettingsNotifier()),
+        ChangeNotifierProvider(create: (_) => LanguageButtonNotifier()),
       ],
       child: const MyApp()
   ));
