@@ -22,6 +22,18 @@ class FlashcardsNotifiers extends ChangeNotifier{
     correctPercentage = (percentage * 100).round();
   }
 
+  double percentComplete = 0.0;
+
+  calculateCompletedPercent(){
+    percentComplete = (correctTotally + incorrectTotally) / cardTotally;
+    notifyListeners();
+  }
+
+  resetProgressBar(){
+    percentComplete = 0.0;
+    notifyListeners();
+  }
+
   List<Word> incorrectCards = [];
 
   String topic = "";
@@ -76,6 +88,8 @@ class FlashcardsNotifiers extends ChangeNotifier{
       correctTotally++;
     }
 
+    calculateCompletedPercent();
+
     notifyListeners();
   }
 
@@ -94,6 +108,8 @@ class FlashcardsNotifiers extends ChangeNotifier{
     cardTotally = selectedWords.length;
     correctTotally = 0;
     incorrectTotally = 0;
+
+    resetProgressBar();
 
   }
 
